@@ -1,0 +1,55 @@
+.section {
+  // background: #333333;
+  color: #00fff7;
+}
+
+.material-icons.md-48 {
+  font-size: 70px;
+}
+
+.coupon {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.coupon-left {
+  width: 150px;
+  height: 150px;
+  background: #333333;
+  border-radius: 10px 0 0 10px;
+  position: relative;
+  border: 1px solid gray;
+  border-right: 2px dashed white;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: -11px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    background: white;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: -11px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    background: white;
+  }
+}
+
+.coupon-content {
+  border: 1px solid gray;
+  width: 350px;
+  height: 150px;
+  border-radius: 0 10px 10px 0;
+  background: linear-gradient(to right, #333333, gray);
+}
