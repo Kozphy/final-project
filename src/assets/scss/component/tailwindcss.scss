@@ -1,5 +1,12 @@
 @import "tailwindcss/base";
 
+
 @import "tailwindcss/components";
+
+@import "./init";
+@import "./Navbar";
+@import "./commomUtils.scss";
+@import "./Home";
+@import "./Products";
 
 @import "tailwindcss/utilities";

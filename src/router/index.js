@@ -8,47 +8,47 @@ const routes = [
   {
     path: '/',
     name: 'Navbar',
-    component: () => import('../views/Layout/Navbar/Navbar.vue'),
+    component: () => import('../views/Layout/NavbarFooter/index.vue'),
     children: [
       {
-        path: '/Layout/Home',
+        path: '/',
         name: 'Home',
         component: Home,
       },
       {
-        path: '/Layout/about',
-        name: 'About',
-        component: () => import('../views/Layout/About.vue'),
-      },
-      {
         path: '/Layout/products',
         name: 'Products',
-        component: () => import('../views/Layout/Products.vue'),
+        component: () => import('../views/Layout/Products/Products.vue'),
       },
       {
         path: '/Layout/product/:id',
         name: 'product',
-        component: () => import('../views/Layout/Product.vue'),
+        component: () => import('../views/Layout/Products/Product.vue'),
+      },
+      {
+        path: 'Layout/NewEvent',
+        name: 'NewEvent',
+        component: () => import('../views/Layout/NewEvent/NewEvent.vue'),
       },
       {
         path: '/Layout/cart',
         name: 'Cart',
-        component: () => import('../views/Layout/Cart.vue'),
+        component: () => import('../views/Layout/Cart/Cart.vue'),
       },
       {
         path: '/Layout/coupon',
         name: 'Coupon',
-        component: () => import('../views/Layout/Coupon.vue'),
+        component: () => import('../views/Layout/Coupon/Coupon.vue'),
       },
       {
         path: '/Layout/checkout',
         name: 'checkout',
-        component: () => import('../views/Layout/Checkout.vue'),
+        component: () => import('../views/Layout/Checkout/Checkout.vue'),
       },
       {
         path: '/Layout/checkoutSuccess',
         name: 'checkoutSuccess',
-        component: () => import('../views/Layout/CheckoutSuccess.vue'),
+        component: () => import('../views/Layout/Checkout/CheckoutSuccess.vue'),
       },
     ],
   },

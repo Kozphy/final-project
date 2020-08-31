@@ -76,7 +76,6 @@ const delAllCart = () => del(`api/${uuid}/ec/shopping/all/product`, '', headers)
 const createOrder = (data) => post(`api/${uuid}/ec/orders`, data, headers);
 
 export {
-
   apiLogin,
   backApiProducts,
   backApiProduct,

@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+
+// html {
+//   overflow: -moz-hidden-unscrollable;
+//   height: 100%;
+// }
+
+// body::-webkit-scrollbar {
+//   display: none;
+// }
+
+// 字體、滾動軸
+body {
+  font-family: 'Architects Daughter', cursive, 'Noto Sans TC', sans-serif;
+  max-width: 100%;
+  height: auto;
+  // -ms-overflow-style: none;
+  // height: 100%;
+  // width: 100vw;
+  // width: calc(100vw + 18px);
+  // overflow: auto;
+}
+
+// rvr stands for responsive vertical rhythm
+@function rvr($multiple) {
+  @return calc(var(--baseline) * $multiple * 1rem);
+}
+
+/* Two rhythm units */
+h2 {
+  margin-top: rvr(2);
+}
+
+/* 0.75 rhythm units */
+p {
+  margin-top: rvr(0.75);
+}
+
+// material icons setting
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+  transition: color .3s ease-in-out;
+
+  &:hover {
+    @apply text-orange-300 #{!important};
+  }
+}
+
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}

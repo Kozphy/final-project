@@ -1,0 +1,68 @@
+.carousel-box {
+  height: 100vh;
+}
+
+.text-vertical {
+  writing-mode: vertical-lr;
+}
+
+// 主打產品
+.line-left:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -310px;
+  right: 0;
+  top: 50px;
+  width: 260px;
+  @apply border border-solid border-black #{!important};
+}
+
+// 關於我們
+.line-right:after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: -310px;
+  top: 60px;
+  @apply border border-solid border-black #{!important};
+  width: 260px;
+}
+
+// timeline
+.timeline:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: black;
+}
+
+.timeline-circle:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: black;
+  position: relative;
+  top: -58px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.link-line:after {
+  content: '';
+  width: 1px;
+  height: 44%;
+  background: black;
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+}

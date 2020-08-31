@@ -3,15 +3,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cheese: '#E5D8CF',
+        cheese: '#F2EFEB',
+        shining: '#FCA311',
+        
       }
     },
   },
   variants: {
-    backgroundColor: ['responsive', 'hover', 'focus', 'active'],
+    backgroundColor: ['responsive', 'hover', 'focus', 'active','group-hover'],
     color: ['responsive', 'hover', 'focus', 'active'],
     transitionDuration: ['responsive', 'hover', 'focus'],
-    transitionProperty: ['responsive', 'motion-safe', 'motion-reduce']
+    transitionProperty: ['responsive', 'hover', 'focus', 'motion-safe', 'motion-reduce'],
+    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+    fontWeight: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
+    borderWidth: ['responsive', 'hover', 'focus'],
+    lineHeight: ['responsive', 'hover', 'focus'],
   },
+
   plugins: [],
 }
