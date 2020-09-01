@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-cheese ">
+  <div class="bg-cheese pt-16 ">
     <!-- carousel start -->
     <swiper
-      class="swiper rounded"
+      class="swiper"
       :options="swiperOption"
     >
       <swiper-slide
@@ -19,7 +19,7 @@
           <div class="flex justify-center items-end h-full text-center sm:cursor-pointer">
             <h2 class="text-white text-5xl bg-gray-900 bg-opacity-50 rounded px-2 py-2
               sm:cursor-shining sm:transition sm:transform duration-500 sm:ease-in-out
-              sm:hover:-translate-y-2 sm:hover:scale-110 sm:hover:font-extrabold">
+              sm:hover:-translate-y-5 sm:hover:scale-110 sm:hover:font-extrabold">
               <span>
                 訂閱 E a Z <br> 讓你每天都 E a Z y :D
               </span>

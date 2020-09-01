@@ -4,7 +4,7 @@ import '@/plugins/overlay';
 import $ from 'jquery';
 import 'bootstrap';
 import '@/plugins/vueToast';
-import store from '@/store/index';
+import store from '@/store/store';
 import '@/plugins/swiper';
 import App from './App.vue';
 import router from './router';

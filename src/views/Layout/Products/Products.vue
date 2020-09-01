@@ -2,7 +2,7 @@
   <div>
     <!-- <loading :active.sync="isLoading"></loading> -->
     <!-- landscape start -->
-    <div class="landscape mb-10">
+    <div class="landscape mb-10 pt-16">
       <div
         class="w-full bg-cover bg-no-repeat bg-center relative"
         style="height:600px; background-image:url(https://images.unsplash.com/photo-1591391615688-6a1ae0f41307?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=60);"
@@ -10,7 +10,7 @@
         <div
           class="absolute transform -translate-y-1/2 bg-black bg-opacity-25 w-full text-center
           py-24"
-          style="top:60%;"
+          style="top:50%;"
         >
           <h3 class="text-5xl text-white">產品專區</h3>
         </div>
@@ -68,7 +68,11 @@
               </div>
               <!-- add to cart -->
               <div class="mx-6 mb-6">
-                <button class="btn btn-hover bg-blue-600 text-white w-full hover:bg-blue-700">
+                <button
+                  class="btn btn-hover bg-blue-600 text-white w-full hover:bg-blue-700
+                "
+                  @click="AddToCart(product)"
+                >
                   加入購物車
                 </button>
               </div>
@@ -109,6 +113,11 @@ export default {
     showDetail(id) {
       this.showSpinner = true;
       this.$router.push(`/Layout/product/${id}`);
+    },
+    AddToCart(product) {
+      // console.log(product);
+      this.$store.dispatch('addToCart', product);
+      // this.$router.push('/Layout/cart');
     },
   },
   computed: {
