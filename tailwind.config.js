@@ -18,6 +18,7 @@ module.exports = {
     fontWeight: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
     borderWidth: ['responsive', 'hover', 'focus'],
     lineHeight: ['responsive', 'hover', 'focus'],
+    appearance: ['responsive', 'hover', 'focus'],
   },
 
   plugins: [],

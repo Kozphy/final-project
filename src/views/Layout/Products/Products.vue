@@ -71,7 +71,7 @@
                 <button
                   class="btn btn-hover bg-blue-600 text-white w-full hover:bg-blue-700
                 "
-                  @click="AddToCart(product)"
+                  @click="addToCart(product)"
                 >
                   加入購物車
                 </button>
@@ -87,6 +87,7 @@
 
 <script>
 import { fontApiProducts } from '@/utils/api';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'products',
@@ -98,6 +99,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['addToCart']),
     getProducts(page = 1) {
       this.isLoading = true;
       fontApiProducts(page)
@@ -113,11 +115,6 @@ export default {
     showDetail(id) {
       this.showSpinner = true;
       this.$router.push(`/Layout/product/${id}`);
-    },
-    AddToCart(product) {
-      // console.log(product);
-      this.$store.dispatch('addToCart', product);
-      // this.$router.push('/Layout/cart');
     },
   },
   computed: {
