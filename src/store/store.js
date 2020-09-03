@@ -29,13 +29,16 @@ export default new Vuex.Store({
       state.cartProducts.push(product);
     },
     updateQuantity(state, product) {
+      let tempData = product;
       const cartIndex = state.cartProducts.findIndex((item) => item.id === product.id);
       if (product.active === 'plus') {
-        state.cartProducts[cartIndex].quantity += 1;
+        tempData.quantity += 1;
+        state.cartProducts.splice(cartIndex, 1, tempData);
         return;
       }
       if (state.cartProducts[cartIndex].quantity > 1) {
-        state.cartProducts[cartIndex].quantity -= 1;
+        tempData.quantity -= 1;
+        state.cartProducts.splice(cartIndex, 1, tempData);
       }
     },
   },

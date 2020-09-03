@@ -1,8 +1,9 @@
 <template>
   <div class="pt-16">
-    <div class="container mx-auto mt-32">
-      <table class="table-auto w-full">
-        <caption class="mb-5">購物車資料</caption>
+    <div class="container mx-auto ">
+      <!-- cart start -->
+      <table class="table-auto w-full my-32">
+        <caption class="mb-5 text-4xl">訂單內容</caption>
         <thead>
           <tr>
             <th class="px-4 py-2">分類</th>
@@ -30,7 +31,7 @@
               >-</button>
               <input
                 class="input-simple rounded-none"
-                :value="product.quantity"
+                v-model="product.quantity"
                 type="number"
               >
               <button
@@ -39,16 +40,46 @@
                 @click="updateQuantity({...product, active:'plus'})"
               >+</button>
             </td>
-            <td class="border px-4 py-2">{{ product.price | thousandsFormat }}</td>
+            <td class="border px-4 py-2">{{ product.price  }}</td>
             <td class="border px-4 py-2 text-center">
-              <button class="btn bg-blue-500 hover:bg-blue-600 hover:text-white
-              transition-all duration-300 ease-in-out">
+              <button class="btn btn-blue">
                 刪除
               </button>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <!-- cart end -->
+    <div class="w-1/2 mx-auto">
+      <validation-observer>
+        <form>
+          <validation-provider
+            :key="item + key"
+            v-for="(item, key) in form"
+            v-slot="{ errors }"
+            class="flex flex-col mb-5"
+          >
+            <label
+              class="text-2xl mb-3"
+              :for="item.id"
+            >{{item.title}}</label>
+            <input
+              class="input-simple"
+              :id="item.id"
+              type="email"
+              v-model="item.validation"
+            >
+            <small class="text-red-600">{{ errors[0] }}</small>
+          </validation-provider>
+          <div class="w-full">
+            <button
+              type="button"
+              class="btn btn-blue ml-auto"
+            >送出訂單</button>
+          </div>
+        </form>
+      </validation-observer>
     </div>
   </div>
 </template>
@@ -59,6 +90,18 @@ import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
+      form: [
+        {
+          title:'姓名',
+          id: 'inputName',
+          validation: '',
+        },
+        {
+          title: '信箱',
+          id: 'inputEmail',
+          validation: '',
+        }
+      ],
     };
   },
   computed: {

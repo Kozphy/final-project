@@ -38,21 +38,14 @@
             :key="product + key"
             v-for="(product, key) in products"
           >
-            <div class="card">
+            <div class="card relative">
               <!-- img & hover effect -->
-              <div class="relative ">
-                <img
-                  class="w-full object-cover"
-                  style="height:250px"
-                  :src="product.imageUrl[0]"
-                  :alt="product.imageUrl[0]"
-                >
-                <div class="black-screen"></div>
-                <span class="show-more text-3xl">
-                  檢視更多&nbsp;
-                  <i class="fas fa-arrow-right"></i>
-                </span>
-              </div>
+              <img
+                class="w-full object-cover"
+                style="height:250px"
+                :src="product.imageUrl[0]"
+                :alt="product.imageUrl[0]"
+              >
               <div class="px-6 py-4">
                 <!-- title -->
                 <div class="font-bold text-xl mb-2">{{product.title}}</div>
@@ -66,10 +59,16 @@
                 <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold
           text-gray-700 mr-2 mb-2">#photography</span>
               </div>
+              <div class="black-screen">
+                <span class="show-more text-3xl">
+                  檢視更多&nbsp;
+                  <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
               <!-- add to cart -->
-              <div class="mx-6 mb-6">
+              <div class="mx-6 mb-6 purchase">
                 <button
-                  class="btn btn-hover bg-blue-600 text-white w-full hover:bg-blue-700
+                  class="btn btn-blue w-full 
                 "
                   @click="addToCart(product)"
                 >
