@@ -11,9 +11,15 @@ export default new Vuex.Store({
     cartProducts: [],
   },
   // 處理 state 的資料
-  // getters:{
-
-  // }
+  getters: {
+    sumTotal(state) {
+      let result = 0;
+      state.cartProducts.forEach((product) => {
+        result += product.quantity * product.price;
+      });
+      return result;
+    },
+  },
   // 用於按鈕點擊觸發的同步事件，便於追蹤是甚麼觸發事件，commit 觸發
   mutations: {
     addToCart(state, product) {

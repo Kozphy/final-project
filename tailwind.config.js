@@ -19,6 +19,7 @@ module.exports = {
     borderWidth: ['responsive', 'hover', 'focus'],
     lineHeight: ['responsive', 'hover', 'focus'],
     appearance: ['responsive', 'hover', 'focus'],
+    opacity: ['responsive', 'hover', 'focus', 'disabled'],
   },
 
   plugins: [],

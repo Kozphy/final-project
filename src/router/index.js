@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@/views/Layout/Home/Home.vue';
 
 Vue.use(VueRouter);
 
@@ -8,12 +7,12 @@ const routes = [
   {
     path: '/',
     name: 'Navbar',
-    component: () => import('../views/Layout/NavbarFooter/index.vue'),
+    component: () => import('@/views/Layout/NavbarFooter/index.vue'),
     children: [
       {
         path: '/',
         name: 'Home',
-        component: Home,
+        component: () => import('@/views/Layout/Home/Home.vue'),
       },
       {
         path: '/Layout/products',

@@ -73,6 +73,7 @@
 import droupdown from './component/Droupdown.vue';
 
 export default {
+  name: 'nabar',
   data() {
     return {
       selectPage: [

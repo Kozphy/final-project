@@ -6,21 +6,15 @@
         <div class="col-md-6">
           <h2 class="font-weight-bold">
             {{this.product.title}}
-            <span
-              class="badge badge-pill badge-secondary"
-            >New</span>
+            <span class="badge badge-pill badge-secondary">New</span>
           </h2>
           <blockquote class="blockquote mt-4">
             <p class="goods-content">{{this.product.content}}</p>
             <footer class="blockquote-footer">商品描述：{{this.product.description}}</footer>
           </blockquote>
           <div class="d-flex justify-content-end align-items-end my-4">
-            <del
-              class="text-muted h5 mb-0"
-            >原價：{{ this.product.origin_price | thousandsFormat}}</del>
-            <span
-              class="text-danger font-weight-bold h3 ml-auto mb-0"
-            >現在只要：{{ this.product.price | thousandsFormat }}</span>
+            <del class="text-muted h5 mb-0">原價：{{ this.product.origin_price | thousandsFormat}}</del>
+            <span class="text-danger font-weight-bold h3 ml-auto mb-0">現在只要：{{ this.product.price | thousandsFormat }}</span>
           </div>
           <validation-observer v-slot="{ invalid }">
             <form>
@@ -86,13 +80,15 @@ export default {
     getProduct() {
       this.isLoading = true;
       const { id } = this.$route.params;
-      fontApiProduct(id).then((res) => {
-        this.product = res.data;
-        this.isLoading = false;
-      }).catch((rej) => {
-        this.isLoading = false;
-        throw rej;
-      });
+      fontApiProduct(id)
+        .then((res) => {
+          this.product = res.data;
+          this.isLoading = false;
+        })
+        .catch((rej) => {
+          this.isLoading = false;
+          throw rej;
+        });
     },
   },
   created() {
@@ -102,7 +98,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .goods-content {
-    text-indent: 2rem;
-  }
+.goods-content {
+  text-indent: 2rem;
+}
 </style>

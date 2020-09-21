@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const request = axios.create({
   baseURL: process.env.VUE_APP_APIPATH,
-  timeout: 30000,
 });
 
 // Add a request interceptor
