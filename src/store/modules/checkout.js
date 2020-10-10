@@ -14,62 +14,52 @@ export default {
     }
   },
   actions: {
-    createProductsInCart({ commit }, uploadData) {
-      createCartProduct(uploadData)
-        .then((res) => {
-          console.log(res);
-          // 清空 gap
-          commit('cart/clearCartProductGap', null, { root: true });
-        })
-        .catch((rej) => {
-          commit('isLoading', false, { root: true });
-          throw rej;
-        })
-    },
-    editProductsInCart({ commit }, uploadData) {
-      editCartProduct(uploadData)
-        .then((res) => {
-          console.log(res);
-          // 清空 gap
-          commit('cart/clearCartProductGap', null, { root: true });
-        })
-        .catch((rej) => {
-          commit('isLoading', false, { root: true });
-          throw rej;
-        })
-    },
     uploadOrder() {
-      console.log('Form true')
+      setTimeout(() => {
+        console.log('Form true')
+      }, 3000)
     },
     changePage({ dispatch, commit }, gap) {
       commit('isLoading', 'FullPage', { root: true });
       if (gap !== "") {
         const callApi = async () => {
-          console.log('2');
-          await gap.forEach((item) => {
-            const { id: product } = item.product;
-            const { isInServer, quantity } = item;
-            const uploadData = {
-              product,
-              quantity,
-            }
-            console.log(isInServer);
-            if (!isInServer) {
-              dispatch('createProductsInCart', uploadData);
-              return;
-            }
-            dispatch('editProductsInCart', uploadData);
-          });
-          await dispatch('uploadOrder');
+          try {
+            return gap.map(async (item) => {
+              const { id: product } = item.product;
+              const { isInServer, quantity } = item;
+              const uploadData = {
+                product,
+                quantity,
+              }
+              console.log('isInServer', isInServer);
+              if (!isInServer) {
+                const done = await createCartProduct(uploadData);
+                return done.data;
+              }
+              const done = await editCartProduct(uploadData);
+              return done.data;
+            });
+          } catch {
+            console.log('changeCartFail');
+          }
         }
-        callApi().then(() => {
-          console.log('change');
-          commit('toCheckoutSuccess');
-          commit('isLoading', false, { root: true });
+
+        callApi().then(async (res) => {
+          console.log(res);
+          // 送出訂單
+          const doneOrder = await dispatch('uploadOrder');
+          return doneOrder;
         })
-          .catch(() => {
-            console.log('uploadFail');
+          .then(() => {
+            // 清空 gap
+            commit('cart/clearCartProductGap', null, { root: true });
+            // changePage
+            commit('toCheckoutSuccess');
             commit('isLoading', false, { root: true });
+          })
+          .catch((err) => {
+            commit('isLoading', false, { root: true });
+            throw err.message;
           })
       }
     }
