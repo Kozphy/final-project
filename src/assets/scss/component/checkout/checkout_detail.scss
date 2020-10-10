@@ -1,0 +1,7 @@
+.checkout__detail {
+  @apply rounded-lg border border-solid border-gray-600 text-black;
+}
+
+.checkout__detail__title {
+  @apply text-center text-3xl font-bold border-b-2 border-solid border-gray-500;
+}

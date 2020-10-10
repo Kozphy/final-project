@@ -1,0 +1,122 @@
+// btn
+@layer base {
+  button {
+    &:focus {
+      @apply outline-none;
+    }
+  }
+}
+
+@layer component {
+  .btn {
+    @apply rounded px-2 py-2 cursor-pointer border border-solid;
+
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  .btn-sm {
+    @apply rounded px-1 py-1 cursor-pointer border border-solid;
+
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  .btn-pill {
+    @apply font-bold py-2 px-4 rounded-full border-solid;
+  }
+
+  .btn-blue {
+    @apply border-blue-600 bg-blue-600 text-white;
+    transition: all .4s ease-in-out 0s;
+
+    &:hover {
+      @apply bg-gray-400 border-gray-400 text-black;
+    }
+
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  .btn-outline-blue {
+    @apply border-blue-600 text-blue-600;
+    transition: all .4s ease-in-out 0s;
+
+    &:hover {
+      @apply bg-red-600 border-red-600 text-white;
+    }
+  }
+
+  .btn-red {
+    @apply border-red-600 bg-red-600 text-white;
+    transition: all .4s ease-in-out 0s;
+
+    &:hover {
+      @apply bg-gray-400 text-black border-gray-400;
+    }
+
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  .btn-outline-red {
+    @apply rounded px-3 py-2 cursor-pointer border-solid border border-red-600 text-red-600 outline-none;
+    transition: all 0.3s ease-in-out 0s;
+
+    &:hover {
+      @apply bg-red-600 text-white;
+    }
+  }
+
+  .btn-disabled {
+    @apply cursor-not-allowed opacity-50;
+
+    &:hover {
+      @apply bg-blue-600 text-white;
+    }
+  }
+
+
+  // input
+  .input-simple {
+    @apply bg-white border border-gray-300 rounded-lg py-2 px-4 block w-full leading-normal shadow;
+
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  // card
+  .card {
+    @apply max-w-sm rounded overflow-hidden shadow-lg h-full;
+  }
+
+  // error-text
+  .error-text-color {
+    @apply text-red-600 mt-2;
+  }
+
+  // table-box, detail-box
+  .table-box,
+  .detail-box {
+    @apply px-4 py-2;
+  }
+
+  // form valid
+  .is-valid {
+    @apply border-green-400;
+  }
+
+  .is-invalid {
+    @apply border-red-400;
+  }
+
+  // loading overlay
+  .vid-parent {
+    position: relative;
+  }
+}

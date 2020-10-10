@@ -1,11 +1,21 @@
 <template>
-  <div class="pt-16">
+  <div class="py-16">
+    <loading
+      v-if="fullPage"
+      :active.sync="isLoading"
+      :is-full-page="fullPage"
+      :height="32"
+      :width="32"
+      loader="bars"
+    ></loading>
     <div class="container mx-auto ">
       <!-- breadcrumbs start -->
       <nav class="breadcrumbs font-sans w-full p-2 my-5  border-b border-solid
       border-gray-500">
         <ul class="flex text-grey-dark">
-          <li
+          <router-link
+            tag="li"
+            :to="item.page"
             :key="item + key"
             v-for="(item, key) in breadcrumbs"
           >
@@ -17,285 +27,155 @@
               v-show="item.slash"
               class="mx-2"
             >/</span>
-          </li>
+          </router-link>
         </ul>
       </nav>
       <!-- breadcrumbs end -->
       <!-- timeline start -->
-      <div class="checkout__timeline relative my-8">
-        <div
-          class="checkout__timeline__line"
-          :key="item + key"
-          v-for="(item, key) in [1,2,3,4]"
-        >
-          <div class="checkout__timeline__circle">
-            <div>
-              {{item}}
-            </div>
-            <div class="checkout__timeline__text text-black">0000</div>
-          </div>
-        </div>
-      </div>
+      <CheckoutProcess :page="'Cart'"></CheckoutProcess>
       <!-- timeline end -->
       <!-- cart start -->
-      <table class="table-auto w-full mb-32 ">
-        <thead>
-          <tr>
-            <th
-              width="150"
-              class="px-4 py-2 border-t"
-            >操作</th>
-            <th class="px-4 py-2 border-t">分類</th>
-            <th class="px-4 py-2 border-t">商品名稱</th>
-            <th
-              width="150"
-              class="px-4 py-2 border-t"
-            >數量</th>
-            <th class="px-4 py-2 text-right border-t">小計</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            :key="product + key"
-            v-for="(product, key) in cartProducts"
-          >
-            <td class="border-t px-4 py-2 text-center">
-              <button class="btn btn-red px-3">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </td>
-            <td class="border-t px-4 py-2">{{ product.category }}</td>
-            <td class="border-t px-4 py-2">{{ product.title }}</td>
-            <td class="flex border-t px-4 py-2">
-              <button
-                type="button"
-                class="btn-change-quantity"
-                @click="updateQuantity({...product, active:'minus'})"
-              >-</button>
-              <input
-                class="input-simple rounded-none"
-                v-model="product.quantity"
-                type="number"
-              >
-              <button
-                type="button"
-                class="btn-change-quantity"
-                @click="updateQuantity({...product, active:'plus'})"
-              >+</button>
-            </td>
-            <td class="border-t px-4 py-2 text-right">{{ subTotal(product) | thousandsFormat }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr
-            height="50"
-            class="border-t"
-          >
-            <td
-              colspan="4"
-              class="text-right"
-            >
-              折扣：
-            </td>
-            <td class="text-right">-0</td>
-          </tr>
-          <tr
-            height="50"
-            class="border-t"
-          >
-            <td colspan="2">
-              <div class="flex rounded-lg border border-solid border-gray-500">
-                <label
-                  for="discount"
-                  class="w-1/6 px-2 py-2 bg-gray-400 text-center rounded-l-lg"
-                >
-                  優惠券
-                </label>
-                <input
-                  id="discount"
-                  class="w-full outline-none px-3 rounded-r-lg"
-                >
-              </div>
-            </td>
-            <td
-              colspan="2"
-              class="text-right"
-            >總計：</td>
-            <td class="text-right">
-              {{ sumTotal | thousandsFormat}}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-    <!-- cart end -->
-    <div class="w-1/2 mx-auto mb-20">
-      <validation-observer v-slot="{ passed }">
-        <form>
-          <validation-provider
-            :rules="item.rules"
-            :key="item + key"
-            v-for="(item, key) in form.section1"
-            v-slot="{ errors , classes, valid }"
-            class="form-divide"
-          >
-            <label
-              class="title-size"
-              :for="item.id"
-            >{{item.title}}</label>
-            <input
-              class="input-simple icon"
-              :class="classes"
-              :id="item.id"
-              :type="item.type"
-              :name="item.title"
-              v-model="item.validation"
-            >
-            <div
-              v-show="valid"
-              class="icon icon-success"
-            ></div>
-            <div
-              class="icon icon-warning"
-              v-show="errors[0]"
-            >
-              <small class="error-text-color">{{ errors[0] }}</small>
-            </div>
-          </validation-provider>
-          <!-- payment -->
-          <validation-provider
-            :rules="form.section2.rule"
-            v-slot="{ errors, classes }"
-            class="form-divide"
-          >
-            <label
-              class="title-size"
-              for="purchaseWay"
-            >付款方式</label>
-            <div class=" icon icon-down">
-              <select
-                id="purchaseWay"
-                class="input-simple appearance-none"
-                v-model="form.section2.validation"
-                name="付款方式"
-                :class="classes"
-              >
-                <option
-                  value=""
-                  selected
-                  disabled
-                  hidden
-                >請選擇購買方式</option>
-                <option
-                  :key="payment + key"
-                  v-for="(payment, key) in form.section2.content"
-                  :value="payment"
-                >{{payment}}</option>
-              </select>
-            </div>
-            <span class="error-text-color">{{errors[0]}}</span>
-          </validation-provider>
-          <!-- comment -->
-          <div class="form-divide">
-            <label
-              class="title-size"
-              for="inputComment"
-            >留言</label>
-            <textarea
-              class="input-simple"
-              name="inputComment"
-              id="inputComment"
-              cols="30"
-              rows="3"
-            ></textarea>
-          </div>
-          <div class="flex flex-end">
+      <div class="flex mt-10">
+        <!-- cart content -->
+        <div class="w-2/3">
+          <div class="text-right my-2">
             <button
-              :disabled="!passed"
-              :class="{'btn-disabled':!passed}"
-              type="button"
-              class="btn btn-blue ml-auto"
-            >送出訂單</button>
+              class="btn btn-red"
+              @click="clearCartAll()"
+            >清除購物車</button>
           </div>
-        </form>
-      </validation-observer>
+          <table class="table-auto w-full mb-32 divide-y divide-gray-400">
+            <thead>
+              <tr>
+                <th class="table-box">分類</th>
+                <th
+                  width="150"
+                  class="table-box"
+                >圖片</th>
+                <th class="table-box ">商品名稱</th>
+                <th
+                  width="150"
+                  class="table-box "
+                >數量</th>
+                <th class="table-box text-right ">金額</th>
+                <th
+                  width="100"
+                  class="table-box "
+                >刪除</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-400">
+              <tr
+                :key="item + key"
+                v-for="(item, key) in cartProducts"
+              >
+                <td class="table-box text-center">{{ item.product.category }}</td>
+                <td class="table-box">
+                  <img
+                    class="w-full object-cover"
+                    style="height:100px"
+                    :src="item.product.imageUrl[0]"
+                    :alt="item.product.imageUrl[0]"
+                  >
+                </td>
+                <td class=" table-box">{{ item.product.title }}</td>
+                <td class="table-box">
+                  <div class="flex">
+                    <button
+                      type="button"
+                      class="btn-outline-red"
+                      @click="changeQuantity({product:item,key,active:'minus'})"
+                    >-</button>
+                    <input
+                      class="input-simple rounded-none"
+                      v-model="item.quantity"
+                      type="number"
+                    >
+                    <button
+                      type="button"
+                      class="btn-outline-red"
+                      @click="changeQuantity({product:item,key,active:'plus'})"
+                    >+</button>
+                  </div>
+                </td>
+                <td class=" table-box text-right">{{ subTotal(item) | thousandsFormat }}</td>
+                <td class=" table-box text-center">
+                  <button
+                    class="btn btn-red px-3"
+                    @click="deleteProduct({product:item.product, key,isInServer:item.isInServer})"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- cart content end -->
+        <!-- order detail -->
+        <Cart__detail class="w-1/3 ml-5"></Cart__detail>
+        <!-- order detail end -->
+      </div>
+      <!-- cart end -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'Cart',
   data() {
     return {
-      form: {
-        section1: [
-          {
-            title: '姓名',
-            type: 'text',
-            id: 'inputName',
-            validation: '',
-            rules: 'required',
-          },
-          {
-            title: '信箱',
-            type: 'email',
-            id: 'inputEmail',
-            validation: '',
-            rules: 'required|email',
-          },
-          {
-            title: '電話',
-            type: 'tele',
-            id: 'tele',
-            validation: '',
-            rules: 'required|digits:10',
-          },
-          {
-            title: '地址',
-            type: 'text',
-            id: 'inputAddress',
-            validation: '',
-            rules: 'required',
-          },
-        ],
-        section2: {
-          rule: 'required',
-          content: [
-            'WebATM',
-            'ATM',
-            'Barcode',
-            'Credit',
-            'ApplePay',
-            'GooglePay',
-          ],
-          validation: '',
-        },
-      },
       breadcrumbs: [
         {
           title: '首頁',
           slash: true,
+          page: '/',
         },
         {
           title: '購物車',
           slash: false,
+          page: '/Layout/Cart',
         },
       ],
     };
   },
+  components: {
+    CheckoutProcess: () =>
+      import(
+        /* webpackChunkName: "CheckoutProcess" */ '@/views/Layout/common/TimelineProcess.vue'
+      ),
+    Cart__detail: () =>
+      import(
+        /* webpackChunkName: "Cart__detail" */ '@/views/Layout/Cart/Cart__detail.vue'
+      ),
+  },
   computed: {
-    ...mapState(['cartProducts']),
-    ...mapGetters(['sumTotal']),
+    ...mapState({
+      isLoading: (state) => state.isLoading,
+      fullPage: (state) => state.fullPage,
+    }),
+    ...mapState('cart', { cartProducts: (state) => state.cartProducts }),
   },
   methods: {
-    ...mapActions(['updateQuantity']),
-    subTotal(product) {
-      return product.price * product.quantity;
+    ...mapMutations('cart', {
+      addToCartHadFind: 'addToCartHadFind',
+    }),
+    ...mapActions('cart', {
+      changeQuantity: 'changeQuantity',
+      deleteProduct: 'deleteProduct',
+      clearCartAll: 'clearCartAll',
+    }),
+    subTotal(item) {
+      return item.product.price * item.quantity;
     },
   },
 };
 </script>
+
+<style lang="scss" module>
+@import '@/assets/scss/component/Cart/Cart.module';
+</style>
 

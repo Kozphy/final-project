@@ -1,0 +1,121 @@
+// 主版面
+// .home {
+//   display: grid;
+//   grid-template-rows: 64px 1fr 300px;
+//   grid-template-columns: 64px 1fr 1fr;
+//   grid-template-areas:
+//     "B1 B2 B2"
+//     "B1 B3 B3"
+//     "B4 B4 B4"
+//   ;
+
+//   .sidbar {
+//     grid-area: B1;
+//   }
+
+//   .header {
+//     grid-area: B2;
+//   }
+
+//   .content {
+//     grid-area: B3;
+//   }
+
+//   .footer {
+//     grid-area: B4;
+//   }
+// }
+
+// navbar
+.navbar-base {
+  @apply z-10 bg-gray-900 px-3 py-3 opacity-75;
+}
+
+.dropdown-base {
+  @apply bg-gray-900 text-white opacity-75 px-2 py-2 w-48 rounded-lg;
+}
+
+.sidebar__left {
+  position: fixed;
+  cursor: pointer;
+  transition: height 0.5s ease-in-out;
+  height: 54px;
+
+  .sidebar__left__content {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility, opacity .5s ease-in-out .2s;
+  }
+
+  &:hover {
+    height: 100vh;
+
+    .sidebar__left__content {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.sidebar__right {
+  position: fixed;
+  right: 0;
+  cursor: pointer;
+
+
+  .personal:hover {
+    .dropdown {
+      transform: scaleY(1);
+    }
+  }
+
+  .dropdown {
+    transition: transform 0.3s ease-in-out;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+}
+
+.active {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    z-index: 20;
+  }
+
+}
+
+.nav-button {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.border-underline {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 0%;
+    height: 2px;
+    transition: width .5s ease 0s;
+  }
+
+  &:hover {
+    &:after {
+      width: 100%;
+      background-color: white;
+    }
+  }
+}

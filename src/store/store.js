@@ -1,60 +1,42 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import products from './modules/products';
+import cart from './modules/cart';
+import checkout from './modules/checkout';
 
 Vue.use(Vuex);
 
+const isLoadingStyle = {
+  FullPage: { isLoading: true, fullPage: true },
+  notFullPage: { isLoading: true, fullPage: false },
+  false: { isLoading: false, fullPage: false }
+};
+
 export default new Vuex.Store({
   strict: true, // 嚴格模式，防止直接修改 state，只用在開發階段，發布階段用 false
+  modules: {
+    products,
+    cart,
+    checkout,
+  },
   // data
   state: {
-    isLoading: true,
-    cartProducts: [],
+    fullPage: false,
+    isLoading: false,
   },
-  // 處理 state 的資料
+  // 處理 state 的資料，computed
   getters: {
-    sumTotal(state) {
-      let result = 0;
-      state.cartProducts.forEach((product) => {
-        result += product.quantity * product.price;
-      });
-      return result;
-    },
+
   },
   // 用於按鈕點擊觸發的同步事件，便於追蹤是甚麼觸發事件，commit 觸發
   mutations: {
-    addToCart(state, product) {
-      const result = product;
-      // 如果有找到 index，代表商品已加入購物車，因此 quantity += 1
-      const cartIndex = state.cartProducts.findIndex((item) => item.id === product.id);
-      if (cartIndex !== -1) {
-        state.cartProducts[cartIndex].quantity += 1;
-        return;
-      }
-      // 沒找到 index，商品 push 到 cartProducts
-      result.quantity = 1;
-      state.cartProducts.push(product);
-    },
-    updateQuantity(state, product) {
-      let tempData = product;
-      const cartIndex = state.cartProducts.findIndex((item) => item.id === product.id);
-      if (product.active === 'plus') {
-        tempData.quantity += 1;
-        state.cartProducts.splice(cartIndex, 1, tempData);
-        return;
-      }
-      if (state.cartProducts[cartIndex].quantity > 1) {
-        tempData.quantity -= 1;
-        state.cartProducts.splice(cartIndex, 1, tempData);
-      }
+    isLoading(state, result) {
+      const { isLoading, fullPage } = isLoadingStyle[result];
+      state.isLoading = isLoading;
+      state.fullPage = fullPage;
     },
   },
-  // 用於監測 mutations 處理非同步，便於 debugger，dispatch 觸發
+  // 用於監測 mutations 處理非同步，便於 debugger，dispatch 觸發，method
   actions: {
-    addToCart(context, product) {
-      context.commit('addToCart', product);
-    },
-    updateQuantity(context, product) {
-      context.commit('updateQuantity', product);
-    },
   },
 });

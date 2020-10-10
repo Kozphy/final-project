@@ -1,0 +1,7 @@
+.cart__detail {
+  @apply rounded-lg border border-solid border-gray-600 text-black;
+}
+
+.cart__detail__title {
+  @apply text-center text-3xl font-bold;
+}

@@ -1,14 +1,14 @@
 <template>
-  <div class="bg-cheese pt-16 ">
+  <div class="bg-cheese content col-span-12">
     <!-- carousel start -->
     <swiper
-      class="swiper"
+      class="swiper relative"
       :options="swiperOption"
     >
       <swiper-slide
         :key="carousel + key"
         v-for="(carousel, key) in carouselImg"
-        class="carousel-box"
+        :class="$style['carousel-box']"
       >
         <!-- background -->
         <div
@@ -16,10 +16,15 @@
           :style="{backgroundImage:`url(${carousel.img})`}"
         >
           <!-- subcribe -->
-          <div class="flex justify-center items-end h-full text-center sm:cursor-pointer">
-            <h2 class="text-white text-5xl bg-gray-900 bg-opacity-50 rounded px-2 py-2
-              sm:cursor-shining sm:transition sm:transform duration-500 sm:ease-in-out
-              sm:hover:-translate-y-5 sm:hover:scale-110 sm:hover:font-extrabold">
+          <div
+            class="subscribe__box"
+            :class="$style['subscribe__box']"
+          >
+            <h2
+              class="subscribe__box__content
+              "
+              :class="$style['subscribe__box__content']"
+            >
               <span>
                 訂閱 E a Z <br> 讓你每天都 E a Z y :D
               </span>
@@ -29,19 +34,21 @@
         <!--backgorund end -->
       </swiper-slide>
       <div
-        class="swiper-button-prev text-black opacity-25"
+        class="swiper-button-prev text-black opacity-25 absolute top-0"
         slot="button-prev"
+        style="height:100vh"
       ></div>
       <div
-        class="swiper-button-next text-black opacity-25"
+        class="swiper-button-next text-black opacity-25 absolute top-0"
         slot="button-next"
+        style="height:100vh"
       ></div>
     </swiper>
     <!-- carousel end -->
     <!-- contact start-->
     <div class="contact mt-12 flex justify-evenly container mx-auto bg-gray-700
     bg-opacity-50 rounded-full
-    text-2xl">
+    text-2xl overflow-hidden">
       <span
         :key="item + key"
         v-for="(item , key) in icons"
@@ -52,15 +59,26 @@
       </span>
     </div>
     <!-- contact end -->
-    <div class="content">
+    <div
+      class="main__product"
+      :class="$style['main__product']"
+    >
       <!-- introduction product  -->
-      <div class="introProducts py-32">
+      <div class="introProducts py-16">
         <div class="container mx-auto">
           <!-- title -->
-          <h2 class="line-left text-6xl block pb-1
-          font-semibold text-black relative">
-            主打產品
-          </h2>
+          <div
+            class="main__product__title"
+            :class="$style['main__product__title']"
+          >
+            <h2
+              class="text-6xl block
+          font-semibold text-black "
+              :class="$style['line-left']"
+            >
+              主打產品
+            </h2>
+          </div>
           <!-- content -->
           <div
             :class="[product.order, product.flex_row]"
@@ -102,11 +120,22 @@
       </div>
       <!-- intorduction End -->
       <!-- About Us Start -->
-      <div class=" text-black py-16">
-        <div class="About container mx-auto text-center">
-          <h3 class="text-6xl pt-3 pr-2 line-right flex justify-end font-semibold relative ">
-            關於我們
-          </h3>
+      <div
+        class="about text-black py-16"
+        :class="$style.about"
+      >
+        <div class=" container mx-auto text-center">
+          <div
+            class="about__title"
+            :class="$style['about__title']"
+          >
+            <h3
+              class="text-6xl flex justify-end font-semibold  "
+              :class="$style['line-right']"
+            >
+              關於我們
+            </h3>
+          </div>
           <div class="xl:grid xl:grid-cols-2 xl:grid-rows-1 xl:gap-3 py-16 ">
             <!-- // * section upstair -->
             <div
@@ -129,19 +158,22 @@
         <div class=" bg-black bg-opacity-25 relative py-48">
           <div class="grid grid-cols-1 grid-rows-1">
             <!-- timeline -->
-            <div class="gird-rows-1 timeline ">
+            <div
+              class="gird-rows-1 timeline "
+              :class="$style.timeline"
+            >
               <!-- content -->
               <div
-                class="link-line timeline-circle bg-white bg-opacity-25 inline-block px-16 w-1/3
-              shadow-md rounded absolute transform translate-y-12 -translate-x-1/2"
                 style="left:50%;"
+                :class="[$style['timeline__content__back'],$style['timeline-circle'],$style['link-line']]"
               >
                 <h6 class="text-3xl font-semibold text-center">2020/06</h6>
                 <p class="text-xl">
                   <span class="font-semibold">
                     E a Z :D
                   </span>
-                  誕生於 <span class="font-semibold">2020/06</span>，為世界上的吃貨們增添一種新的選擇。</p>
+                  誕生於 <span class="font-semibold">2020/06</span>，為世界上的吃貨們增添一種新的選擇。
+                </p>
               </div>
             </div>
           </div>
@@ -184,7 +216,10 @@ export default {
       swiperOption: {
         slidesPerView: 1,
         spaceBetween: 30,
-        loop: true,
+        loop: false,
+        autoplay: {
+          delay: 3000,
+        },
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
@@ -275,3 +310,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" module>
+@import '@/assets/scss/component/Home/Home.module';
+</style>

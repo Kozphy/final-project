@@ -2,7 +2,7 @@
   <div>
     <!-- <loading :active.sync="isLoading"></loading> -->
     <!-- landscape start -->
-    <div class="landscape mb-10 pt-16">
+    <div class="landscape mb-10">
       <div
         class="w-full bg-cover bg-no-repeat bg-center relative"
         style="height:600px; background-image:url(https://images.unsplash.com/photo-1591391615688-6a1ae0f41307?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=60);"
@@ -56,17 +56,25 @@
               </div>
               <!-- badge -->
               <div class="px-6 pt-4 pb-2">
-                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold
-          text-gray-700 mr-2 mb-2">#photography</span>
+                <span
+                  class="inline-block"
+                  :class="$style['badge-simple']"
+                >#photography</span>
               </div>
-              <div class="black-screen">
-                <span class="show-more text-3xl">
+              <div :class="$style['black-screen']">
+                <span
+                  class="text-3xl"
+                  :class="$style['show-more']"
+                >
                   檢視更多&nbsp;
                   <i class="fas fa-arrow-right"></i>
                 </span>
               </div>
               <!-- add to cart -->
-              <div class="mx-6 mb-6 purchase">
+              <div
+                class="mx-6 mb-6"
+                :class="$style['purchase']"
+              >
                 <button
                   class="btn btn-blue w-full 
                 "
@@ -85,8 +93,7 @@
 </template>
 
 <script>
-import { fontApiProducts } from '@/utils/api';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'products',
@@ -94,40 +101,38 @@ export default {
     return {
       isLoading: false,
       showSpinner: false,
-      products: [],
     };
   },
   methods: {
-    ...mapActions(['addToCart']),
-    getProducts(page = 1) {
-      this.isLoading = true;
-      fontApiProducts(page)
-        .then((res) => {
-          this.products = res.data.data;
-          this.isLoading = false;
-        })
-        .catch((rej) => {
-          this.isLoading = false;
-          throw rej;
-        });
-    },
+    ...mapActions('products', {
+      addToCart: 'addToCart',
+    }),
+    // ...mapActions(['addToCart']),
     showDetail(id) {
       this.showSpinner = true;
       this.$router.push(`/Layout/product/${id}`);
     },
   },
   computed: {
+    ...mapState('products', {
+      products: (state) => {
+        return state.products;
+      },
+    }),
     ListCategory() {
       const temp = [];
       this.products.forEach((item) => {
         temp.push(item.category);
       });
-      const result = temp.filter((item, index, arr) => arr.indexOf(item) === index);
+      const result = temp.filter(
+        (item, index, arr) => arr.indexOf(item) === index
+      );
       return result;
     },
   },
-  created() {
-    this.getProducts();
-  },
 };
 </script>
+
+<style lang="scss" module>
+@import '@/assets/scss/component/Products/Products.module';
+</style>

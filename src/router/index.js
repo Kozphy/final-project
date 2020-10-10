@@ -1,88 +1,94 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
+import Navbar from '@/views/Layout/NavbarFooter/Menu.vue';
+import Footer from '@/views/Layout/NavbarFooter/Footer.vue';
+import index from '@/views/Layout/NavbarFooter/index.vue';
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Navbar',
-    component: () => import('@/views/Layout/NavbarFooter/index.vue'),
+    name: 'index',
+    components: {
+      navbar: Navbar,
+      footer: Footer,
+      default: index,
+    },
     children: [
       {
-        path: '/',
+        path: '',
         name: 'Home',
-        component: () => import('@/views/Layout/Home/Home.vue'),
+        component: () => import(/* webpackChunkName: "Home" */ '@/views/Layout/Home/Home.vue')
       },
       {
         path: '/Layout/products',
         name: 'Products',
-        component: () => import('../views/Layout/Products/Products.vue'),
+        component: () => import(/* webpackChunkName: "Products" */ '../views/Layout/Products/Products.vue'),
       },
       {
         path: '/Layout/product/:id',
-        name: 'product',
-        component: () => import('../views/Layout/Products/Product.vue'),
+        name: 'Product',
+        component: () => import(/* webpackChunkName: "product/id" */ '../views/Layout/Products/Product.vue'),
       },
       {
         path: 'Layout/NewEvent',
         name: 'NewEvent',
-        component: () => import('../views/Layout/NewEvent/NewEvent.vue'),
+        component: () => import(/* webpackChunkName: "NewEvent" */ '../views/Layout/NewEvent/NewEvent.vue'),
       },
       {
         path: '/Layout/cart',
         name: 'Cart',
-        component: () => import('../views/Layout/Cart/Cart.vue'),
+        component: () => import(/* webpackChunkName: "Cart" */ '../views/Layout/Cart/Cart.vue'),
       },
       {
         path: '/Layout/coupon',
         name: 'Coupon',
-        component: () => import('../views/Layout/Coupon/Coupon.vue'),
+        component: () => import(/* webpackChunkName: "Coupon" */ '../views/Layout/Coupon/Coupon.vue'),
       },
       {
         path: '/Layout/checkout',
-        name: 'checkout',
-        component: () => import('../views/Layout/Checkout/Checkout.vue'),
+        name: 'Checkout',
+        component: () => import(/* webpackChunkName: "checkout" */ '../views/Layout/Checkout/Checkout.vue'),
       },
       {
         path: '/Layout/checkoutSuccess',
-        name: 'checkoutSuccess',
-        component: () => import('../views/Layout/Checkout/CheckoutSuccess.vue'),
+        name: 'CheckoutSuccess',
+        component: () => import(/* webpackChunkName: "checkoutSuccess" */ '../views/Layout/Checkout/CheckoutSuccess.vue'),
       },
     ],
   },
   // 後台
   {
     path: '/login',
-    component: () => import('@/views/dashboard/Login'),
+    component: () => import(/* webpackChunkName: "login" */ '@/views/dashboard/Login'),
   },
   {
     path: '/admin',
-    component: () => import('@/views/dashboard/Dashboard'),
+    component: () => import(/* webpackChunkName: "admin" */ '@/views/dashboard/Dashboard'),
     children: [
       {
         path: 'imgStorage',
-        component: () => import('@/views/dashboard/ImgStorage/ImgStorage'),
+        component: () => import(/* webpackChunkName: "imgStorage" */ '@/views/dashboard/ImgStorage/ImgStorage'),
       },
       {
         path: 'products',
-        component: () => import('@/views/dashboard/Products/Products'),
+        component: () => import(/* webpackChunkName: "backendProducts" */ '@/views/dashboard/Products/Products'),
       },
       {
         path: 'coupons',
-        component: () => import('../views/dashboard/Coupons/Coupons'),
+        component: () => import(/* webpackChunkName: "backendCoupons" */ '@/views/dashboard/Coupons/Coupons'),
       },
       {
         path: 'orders',
-        component: () => import('@/views/dashboard/Orders/Orders'),
+        component: () => import(/* webpackChunkName: "backendOrders" */ '@/views/dashboard/Orders/Orders'),
       },
       {
         path: 'orderDetail',
-        component: () => import('@/views/dashboard/Orders/components/Detail'),
+        component: () => import(/* webpackChunkName: "backendOrderDetail" */ '@/views/dashboard/Orders/components/Detail'),
       },
       {
         path: 'shopCart',
-        component: () => import('@/views/dashboard/ShopCart/ShopCart'),
+        component: () => import(/* webpackChunkName: "backendShopCart" */ '@/views/dashboard/ShopCart/ShopCart'),
       },
     ],
   },

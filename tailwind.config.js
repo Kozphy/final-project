@@ -5,12 +5,12 @@ module.exports = {
       colors: {
         cheese: '#F2EFEB',
         shining: '#FCA311',
-        
+
       }
     },
   },
   variants: {
-    backgroundColor: ['responsive', 'hover', 'focus', 'active','group-hover'],
+    backgroundColor: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
     color: ['responsive', 'hover', 'focus', 'active'],
     transitionDuration: ['responsive', 'hover', 'focus'],
     transitionProperty: ['responsive', 'hover', 'focus', 'motion-safe', 'motion-reduce'],
@@ -20,6 +20,8 @@ module.exports = {
     lineHeight: ['responsive', 'hover', 'focus'],
     appearance: ['responsive', 'hover', 'focus'],
     opacity: ['responsive', 'hover', 'focus', 'disabled'],
+    gridAutoFlow: ['responsive', 'hover', 'focus'],
+    outline: ['responsive', 'focus', 'hover', 'active'],
   },
 
   plugins: [],

@@ -1,3 +1,7 @@
+.form__title__size {
+  @apply text-lg;
+}
+
 .icon::before {
   display: inline-block;
   font-style: normal;
@@ -56,12 +60,4 @@
     transform: translateY(-50%);
     @apply text-black;
   }
-}
-
-.title-size {
-  @apply text-xl mb-3;
-}
-
-.form-divide {
-  @apply flex flex-col mb-5;
 }

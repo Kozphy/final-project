@@ -99,21 +99,18 @@ export default {
   created() {
     this.api_token = document.cookie.replace(
       /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
-      '$1',
+      '$1'
     );
     this.checkLogin();
-    this.$toasted.show(
-      '登入成功!!', {
-        icon: {
-          name: 'verified_user',
-        },
+    this.$toasted.show('登入成功!!', {
+      icon: {
+        name: 'verified_user',
       },
-    );
+    });
   },
-
 };
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/component/_Dashboard.scss';
+@import '@/assets/scss/_Dashboard.scss';
 </style>

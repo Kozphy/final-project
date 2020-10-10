@@ -41,6 +41,9 @@ const getApiCoupons = (page) => get(`api/${uuid}/admin/ec/coupons?page=${page}`,
 // 新增優惠券
 const createCoupon = (data) => post(`api/${uuid}/admin/ec/coupon`, data, headers);
 
+// 搜尋優惠券
+const searchCoupon = (code) => post(`api/${uuid}/ec/coupon/search`, code, headers);
+
 // 刪除後台優惠券
 const delBackCoupon = (id) => del(`api/${uuid}/admin/ec/coupon/${id}`, '', headers);
 
@@ -55,16 +58,19 @@ const editImg = (file) => post(`api/${uuid}/admin/storage`, file, headersFile);
 
 // 前台
 // 取得前台所有產品
-const fontApiProducts = (page) => get(`api/${uuid}/ec/products?page=${page}`, '', headers);
+const frontApiProducts = (page) => get(`api/${uuid}/ec/products?page=${page}`, '', headers);
 
 // 取得前台單一產品
-const fontApiProduct = (id) => get(`api/${uuid}/ec/product/${id}`, '', headers);
+const frontApiProduct = (id) => get(`api/${uuid}/ec/product/${id}`, '', headers);
 
 // 取得購物車所有資料
 const getCartProducts = (page) => get(`api/${uuid}/ec/shopping?page=${page}`, '', headers);
 
 // 新增一筆購物車資料
 const createCartProduct = (data) => post(`api/${uuid}/ec/shopping`, data, headers);
+
+// 修改購物車資料
+const editCartProduct = (data) => patch(`api/${uuid}/ec/shopping`, data, headers);
 
 // 刪除某一筆購物車資料
 const delCartProduct = (id, data) => del(`api/${uuid}/ec/shopping/${id}`, data, headers);
@@ -87,14 +93,16 @@ export {
   getApiOrders,
   getApiCoupons,
   createCoupon,
+  searchCoupon,
   delBackCoupon,
   delImg,
   editImg,
   getApiImg,
-  fontApiProducts,
-  fontApiProduct,
+  frontApiProducts,
+  frontApiProduct,
   getCartProducts,
   createCartProduct,
+  editCartProduct,
   delCartProduct,
   delAllCart,
   createOrder,

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { fontApiProduct } from '@/utils/api';
+import { frontApiProduct } from '@/utils/api';
 
 export default {
   data() {
@@ -80,7 +80,7 @@ export default {
     getProduct() {
       this.isLoading = true;
       const { id } = this.$route.params;
-      fontApiProduct(id)
+      frontApiProduct(id)
         .then((res) => {
           this.product = res.data;
           this.isLoading = false;

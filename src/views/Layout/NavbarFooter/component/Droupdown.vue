@@ -1,16 +1,21 @@
 <template>
   <div class="relative">
-    <button class="flex items-end bg-transparent text-white-700 border-none
-    hover:border-transparent transition-all ease-out duration-300">
-      <span class="material-icons  md-36 md-light outline-none">
+    <button type="button">
+      <span
+        class="material-icons md-36 md-light "
+        :class="decoration['navbarBase']"
+      >
         account_circle
       </span>
     </button>
-    <div class="absolute right-0 mt-3 px-2 py-2 w-48 bg-white rounded-lg shodaw-xl">
+    <div
+      class="absolute right-0 mt-1"
+      :class="[decoration['dropdown'], decoration['dropdownBase']]"
+    >
       <router-link
         tag="a"
-        class="block px-4 py-2 text-gray-800 hover:bg-gray-500
-        hover:text-white"
+        class="block px-4 py-2 hover:bg-white
+        hover:text-black"
         :key="item + key"
         v-for="(item, key) in dropData"
         :to="item.route"
@@ -23,6 +28,15 @@
 
 <script>
 export default {
+  name: 'dropdown',
+  props: {
+    class_to_send: {
+      type: Array,
+    },
+    // dropdown: String,
+    // dropdownBase: String,
+    // navbarBase: String,
+  },
   data() {
     return {
       dropData: [
@@ -32,12 +46,23 @@ export default {
           route: '/Layout/checkoutSuccess',
         },
         {
-          pageName: '查看訂單',
+          pageName: '個人資料',
           isActive: false,
-          route: '/Layout/cart',
+          route: '/',
         },
       ],
+      decoration: {},
+    };
+  },
+  created() {
+    let result = this.class_to_send;
+    let { 0: dropdown, 1: dropdownBase, 2: navbarBase } = result;
+    this.decoration = {
+      ...dropdown,
+      ...dropdownBase,
+      ...navbarBase,
     };
   },
 };
 </script>
+
