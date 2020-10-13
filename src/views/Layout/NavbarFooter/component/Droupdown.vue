@@ -18,7 +18,7 @@
         hover:text-black"
         :key="item + key"
         v-for="(item, key) in dropData"
-        :to="item.route"
+        :to="{name:item.route}"
       >
         {{item.pageName}}
       </router-link>
@@ -33,9 +33,6 @@ export default {
     class_to_send: {
       type: Array,
     },
-    // dropdown: String,
-    // dropdownBase: String,
-    // navbarBase: String,
   },
   data() {
     return {
@@ -43,12 +40,12 @@ export default {
         {
           pageName: '登入',
           isActive: false,
-          route: '/Layout/checkoutSuccess',
+          route: 'CheckoutSuccess',
         },
         {
-          pageName: '個人資料',
+          pageName: '我的訂單',
           isActive: false,
-          route: '/',
+          route: 'MyOrder',
         },
       ],
       decoration: {},

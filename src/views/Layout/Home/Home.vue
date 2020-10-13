@@ -305,9 +305,6 @@ export default {
       },
     };
   },
-  methods: {
-    getProducts() {},
-  },
 };
 </script>
 

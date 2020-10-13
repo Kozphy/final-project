@@ -8,7 +8,6 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'index',
     components: {
       navbar: Navbar,
       footer: Footer,
@@ -55,11 +54,17 @@ const routes = [
         name: 'CheckoutSuccess',
         component: () => import(/* webpackChunkName: "checkoutSuccess" */ '../views/Layout/Checkout/CheckoutSuccess.vue'),
       },
+      {
+        path: '/Layout/MyOrder',
+        name: 'MyOrder',
+        component: () => import(/* webpackChunkName: "checkoutSuccess" */ '../views/Layout/Order/MyOrder.vue'),
+      },
     ],
   },
   // 後台
   {
     path: '/login',
+    name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/dashboard/Login'),
   },
   {

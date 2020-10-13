@@ -7,25 +7,7 @@
     ></loading>
     <!-- breadcrumbs start -->
     <div class="w-1/2 mx-auto">
-      <nav class="breadcrumbs font-sans w-full p-2 my-5  border-b border-solid
-      border-gray-500">
-        <ul class="flex text-grey-dark">
-          <router-link
-            :key="item + key"
-            v-for="(item, key) in breadcrumbs"
-            :to="item.page"
-          >
-            <a
-              href="#"
-              class="text-blue font-bold"
-            >{{ item.title }}</a>
-            <span
-              v-show="item.slash"
-              class="mx-2"
-            >/</span>
-          </router-link>
-        </ul>
-      </nav>
+      <Breadcrumbs></Breadcrumbs>
     </div>
     <!-- breadcrumbs end -->
     <!-- checkoutProcess start -->
@@ -118,6 +100,7 @@
                 id="inputComment"
                 cols="30"
                 rows="3"
+                v-model="form.section2.comments"
               ></textarea>
             </div>
             <div class="flex flex-end mt-5">
@@ -133,7 +116,7 @@
                 type="submit"
                 value="送出訂單"
                 class="btn btn-blue ml-auto"
-                @click="changePage(cartProductsGap)"
+                @click="changePage({gap:cartProductsGap,form})"
               >
             </div>
           </form>
@@ -151,23 +134,6 @@ export default {
   data() {
     return {
       fullPage: true,
-      breadcrumbs: [
-        {
-          title: '首頁',
-          slash: true,
-          page: '/',
-        },
-        {
-          title: '購物車',
-          slash: true,
-          page: '/Layout/Cart',
-        },
-        {
-          title: '表單',
-          slash: false,
-          page: '/Layout/Checkout',
-        },
-      ],
       form: {
         section1: [
           {
@@ -186,8 +152,8 @@ export default {
           },
           {
             title: '電話',
-            type: 'tele',
-            id: 'tele',
+            type: 'tel',
+            id: 'Inputtel',
             validation: '',
             rules: 'required|digits:10',
           },
@@ -210,6 +176,7 @@ export default {
             'GooglePay',
           ],
           validation: '',
+          comments: '',
         },
       },
     };
@@ -222,6 +189,10 @@ export default {
     Checkout__detail: () =>
       import(
         /* webpackChunkName: "CheckoutProcess" */ '@/views/Layout/Checkout/checkout__detail'
+      ),
+    Breadcrumbs: () =>
+      import(
+        /* webpackChunkName: "BreadCrumbs" */ '@/views/Layout/common/Breadcrumbs'
       ),
   },
   computed: {

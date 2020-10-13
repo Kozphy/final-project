@@ -10,26 +10,7 @@
     ></loading>
     <div class="container mx-auto ">
       <!-- breadcrumbs start -->
-      <nav class="breadcrumbs font-sans w-full p-2 my-5  border-b border-solid
-      border-gray-500">
-        <ul class="flex text-grey-dark">
-          <router-link
-            tag="li"
-            :to="item.page"
-            :key="item + key"
-            v-for="(item, key) in breadcrumbs"
-          >
-            <a
-              href="#"
-              class="text-blue font-bold"
-            >{{ item.title }}</a>
-            <span
-              v-show="item.slash"
-              class="mx-2"
-            >/</span>
-          </router-link>
-        </ul>
-      </nav>
+      <Breadcrumbs></Breadcrumbs>
       <!-- breadcrumbs end -->
       <!-- timeline start -->
       <CheckoutProcess :page="'Cart'"></CheckoutProcess>
@@ -127,20 +108,7 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
   name: 'Cart',
   data() {
-    return {
-      breadcrumbs: [
-        {
-          title: '首頁',
-          slash: true,
-          page: '/',
-        },
-        {
-          title: '購物車',
-          slash: false,
-          page: '/Layout/Cart',
-        },
-      ],
-    };
+    return {};
   },
   components: {
     CheckoutProcess: () =>
@@ -150,6 +118,10 @@ export default {
     Cart__detail: () =>
       import(
         /* webpackChunkName: "Cart__detail" */ '@/views/Layout/Cart/Cart__detail.vue'
+      ),
+    Breadcrumbs: () =>
+      import(
+        /* webpackChunkName: "CheckoutProcess" */ '@/views/Layout/common/Breadcrumbs.vue'
       ),
   },
   computed: {

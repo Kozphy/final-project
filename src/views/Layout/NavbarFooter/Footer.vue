@@ -23,7 +23,7 @@
               :key="item + key"
               v-for="(item, key) in footerLink"
               tag="a"
-              :to="item.link"
+              :to="{name:item.link}"
               class="text-xl"
               :class="$style['border-underline']"
             >{{item.name}}</router-link>
@@ -43,20 +43,16 @@ export default {
       footerLink: [
         {
           name: '產品列表',
-          link: '/Layout/products',
+          link: 'Products',
         },
         {
-          name: '關於作者',
-          link: '/Layout/Author',
+          name: '最新活動',
+          link: 'NewEvent',
         },
         {
           name: '登入',
-          link: '/Layout/Login',
+          link: 'Login',
         },
-        // {
-        //   name: '地址',
-        //   link: '/Layout/Address',
-        // },
       ],
     };
   },

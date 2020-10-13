@@ -81,6 +81,10 @@ const delAllCart = () => del(`api/${uuid}/ec/shopping/all/product`, '', headers)
 // 新增一筆訂單
 const createOrder = (data) => post(`api/${uuid}/ec/orders`, data, headers);
 
+// 前台取得所有訂單
+const getFrontOrders = (query) => get(`api/${uuid}/ec/orders`, query, headers);
+
+
 export {
   apiLogin,
   backApiProducts,
@@ -106,4 +110,5 @@ export {
   delCartProduct,
   delAllCart,
   createOrder,
+  getFrontOrders
 };

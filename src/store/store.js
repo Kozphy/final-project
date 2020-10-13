@@ -23,10 +23,37 @@ export default new Vuex.Store({
   state: {
     fullPage: false,
     isLoading: false,
+    breadcrumbs: {
+      Home: {
+        title: '首頁',
+        slash: true,
+        page: 'Home',
+      },
+      Cart: {
+        title: '購物車',
+        slash: true,
+        page: 'Cart',
+      },
+      Checkout: {
+        title: '表單',
+        slash: false,
+        page: 'Checkout',
+      },
+    },
   },
   // 處理 state 的資料，computed
   getters: {
-
+    checkoutBreadcrumbs(state) {
+      const { Home, Cart, Checkout } = JSON.parse(JSON.stringify(state.breadcrumbs));
+      const data = [Home, Cart, Checkout];
+      return data;
+    },
+    cartBreadcrumbs(state) {
+      const { Home, Cart } = JSON.parse(JSON.stringify(state.breadcrumbs));
+      Cart.slash = false;
+      const data = [Home, Cart];
+      return data;
+    }
   },
   // 用於按鈕點擊觸發的同步事件，便於追蹤是甚麼觸發事件，commit 觸發
   mutations: {
